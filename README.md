@@ -1,8 +1,92 @@
-# Residual-attention-based-uncertainty-guided-mean-teacher-model-for-semi-supervised-breast-masses-seg
+# RA-UAMT: Residual Attention–based Uncertainty-Guided Mean Teacher for Semi-Supervised Breast Mass Segmentation
 
-Breast tumor is the second deadliest disease among women around the world. Earlier tumor diagnosis is extremely important for improving the survival rate. Recent deep-learning techniques proved helpful in the timely diagnosis of various tumors. However, in the case of breast tumors, the characteristics of the tumors, i.e., low visual contrast, unclear boundary, and diversity in shape and size of breast lesions, make it more challenging to design a highly efficient detection system. Additionally, the scarcity of publicly available labeled data is also a major hurdle in the development of highly accurate and robust deep-learning models for breast tumor detection. To overcome these issues, we propose residual-attention-based uncertainty-guided mean teacher framework which incorporates the residual and attention blocks. The residual for optimizing the deep network by enabling the flow of high-level features and attention modules improves the focus of the model by optimizing its weights during the learning process. We further explore the potential of utilizing unlabeled data during the training process by employing the semi-supervised learning (SSL) method. Particularly, the uncertainty-guided mean-teacher student architecture is exploited to demonstrate the potential of incorporating the unlabeled samples during the training of residual attention U-Net model. The proposed SSL framework has been rigorously evaluated on two publicly available labeled datasets, i.e., BUSI and UDIAT datasets. The quantitative as well as qualitative results demonstrate that the proposed framework achieved competitive performance with respect to the previous state-of-the-art techniques and outperform the existing breast ultrasound masses segmentation techniques. Most importantly, the study demonstrates the potential of
-incorporating the additional unlabeled data for improving the performance of breast tumor segmentation.
+This repository contains the official implementation of our paper:
 
+> **Residual attention based uncertainty-guided mean teacher model for semi-supervised breast masses segmentation in 2D ultrasonography**  
+> M. U. Farooq, Z. Ullah, J. Gwak  
+> *Computerized Medical Imaging and Graphics*, Vol. 104, 102173, 2023  
+> [ScienceDirect](https://www.sciencedirect.com/science/article/pii/S0895611122001434) · [DOI: 10.1016/j.compmedimag.2022.102173](https://doi.org/10.1016/j.compmedimag.2022.102173)
 
+---
 
-### Datasets
+<div align="center">
+
+[![Journal](https://img.shields.io/badge/Journal-Computerized%20Medical%20Imaging%20and%20Graphics-2F4F4F.svg)](https://www.sciencedirect.com/science/article/pii/S0895611122001434)
+[![DOI](https://img.shields.io/badge/DOI-10.1016%2Fj.compmedimag.2022.102173-blue.svg)](https://doi.org/10.1016/j.compmedimag.2022.102173)
+[![Year](https://img.shields.io/badge/Year-2023-lightgrey.svg)](https://doi.org/10.1016/j.compmedimag.2022.102173)
+<!-- If you later put code on HF or a project page, you can add more badges here -->
+
+</div>
+
+---
+
+<p align="center">
+  <!-- Replace with your own architecture figure -->
+  <img src="images/architecture.png" alt="Residual attention based uncertainty-guided mean teacher framework" width="80%">
+</p>
+
+---
+
+## Table of Contents
+
+- [Overview](#overview)
+- [Method](#method)
+- [Repository Structure](#repository-structure)
+- [Getting Started](#getting-started)
+  - [Environment Setup](#environment-setup)
+  - [Data Preparation](#data-preparation)
+- [Training](#training)
+- [Evaluation](#evaluation)
+- [Results](#results)
+- [Citation](#citation)
+- [Acknowledgements](#acknowledgements)
+
+---
+
+## Overview
+
+Breast ultrasound segmentation is challenging due to low contrast, fuzzy lesion boundaries, and large variations in mass shape and size. At the same time, high-quality pixel-wise annotations are scarce and expensive to obtain.
+
+Our work proposes a **semi-supervised mean teacher framework** that:
+
+- Uses a **residual attention U-Net** backbone to enhance feature extraction and focus on lesion regions.
+- Incorporates **uncertainty estimation** to weight the consistency loss on unlabeled images.
+- Exploits both **labeled and unlabeled ultrasound images** to improve segmentation performance on BUSI and UDIAT datasets.
+
+The proposed model achieves competitive or superior performance to fully supervised and existing semi-supervised methods while using significantly fewer labeled samples.
+
+---
+
+## Method
+
+The framework follows a standard teacher–student paradigm with three key components:
+
+1. **Residual Attention Backbone**  
+   - Residual blocks facilitate gradient flow and stabilize training of deeper networks.  
+   - Attention modules highlight informative spatial regions corresponding to breast lesions.
+
+2. **Mean Teacher with Consistency Regularization**  
+   - A teacher network is updated as the exponential moving average (EMA) of the student.  
+   - Consistency losses encourage the student predictions to match the teacher under different perturbations.
+
+3. **Uncertainty-Guided Weighting**  
+   - Pixel-wise uncertainty maps are estimated from the teacher predictions.  
+   - Unreliable regions receive lower weight in the consistency loss, reducing the effect of noisy pseudo-labels from unlabeled images.
+
+(See the paper for full mathematical details and ablation studies.)
+
+---
+
+## Repository Structure
+
+> **Note:** Adjust this section to match your actual folder structure.
+
+```text
+.
+├── configs/                 # YAML or JSON configuration files
+├── data/                    # Dataset splits / CSVs (paths only, not raw data)
+├── models/                  # Model definitions (RA-UNet, mean teacher wrapper, etc.)
+├── train.py                 # Training script
+├── eval.py                  # Evaluation / inference script
+├── utils/                   # Data loading, metrics, logging helpers
+└── README.md
