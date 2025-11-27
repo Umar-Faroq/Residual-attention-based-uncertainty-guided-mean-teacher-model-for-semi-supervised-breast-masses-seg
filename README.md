@@ -22,7 +22,7 @@ This repository contains the official implementation of our paper:
 
 <p align="center">
   <!-- Replace with your own architecture figure -->
-  <img src="images/architecture.png" alt="Residual attention based uncertainty-guided mean teacher framework" width="80%">
+  <img src="image/network.PNG" alt="Residual attention based uncertainty-guided mean teacher framework" width="80%">
 </p>
 
 ---
